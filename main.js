@@ -4,8 +4,8 @@ var express = require("express");
 var bodyParser = require('body-parser');
 var WebSocket = require("ws");
 
-var http_port = process.env.HTTP_PORT || 3001;
-var p2p_port = process.env.P2P_PORT || 6001;
+var http_port = process.env.PORT || 3001;
+// var p2p_port = process.env.P2P_PORT || 6001;
 var initialPeers = process.env.PEERS ? process.env.PEERS.split(',') : [];
 
 class Block {
@@ -54,12 +54,12 @@ var initHttpServer = () => {
 };
 
 
-var initP2PServer = () => {
-    var server = new WebSocket.Server({port: p2p_port});
-    server.on('connection', ws => initConnection(ws));
-    console.log('listening websocket p2p port on: ' + p2p_port);
+// var initP2PServer = () => {
+//     var server = new WebSocket.Server({port: p2p_port});
+//     server.on('connection', ws => initConnection(ws));
+//     console.log('listening websocket p2p port on: ' + p2p_port);
 
-};
+// };
 
 var initConnection = (ws) => {
     sockets.push(ws);
@@ -207,4 +207,4 @@ var broadcast = (message) => sockets.forEach(socket => write(socket, message));
 
 connectToPeers(initialPeers);
 initHttpServer();
-initP2PServer();
+//initP2PServer();
