@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Blockchain GUI</title>
+    <link href="/style.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div id="blockchain">
+        {% for block in blockchain %}
+        <div class="block">
+            <div class="cheers-title">Cheers!</div>
+            <div class="hline"></div>
+            <div class="data">
+                <div class="title">DATA</div>
+                <div>{{block.data}}</div>
+            </div>
+            <hr>
+            <div class="time">
+                <div class="title">CREATED AT</div>
+                <div>{{block.timestamp}}</div>
+            </div>
+            <hr>
+            <div class="hash">
+                <div class="title">HASH</div>
+                <div class="hash-code">{{block.hash}}</div>
+            </div>
+        </div>
+
+        <p class="arrow-wrapper">
+            <span class="glyphicon glyphicon-arrow-down"></span>
+        </p>
+        {% endfor %}
+    </div>
+
+
+
+
+
+</body>
+
+</html>

@@ -3,7 +3,11 @@ var CryptoJS = require("crypto-js");
 var express = require("express");
 var bodyParser = require('body-parser');
 var WebSocket = require("ws");
+var nunjucks = require('nunjucks');
+const path = require('path')
 
+
+// Heroku needs the HTTP port to be named this exactly: process.env.PORT
 var http_port = process.env.PORT || 3001;
 // var p2p_port = process.env.P2P_PORT || 6001;
 var initialPeers = process.env.PEERS ? process.env.PEERS.split(',') : [];
@@ -33,8 +37,21 @@ var blockchain = [getGenesisBlock()];
 
 var initHttpServer = () => {
     var app = express();
+
+    app.use(express.static('./public'));
+    // point nunjucks to the directory containing templates and turn off caching; configure returns an Environment 
+    // instance, which we'll want to use to add Markdown support later.
+    var env = nunjucks.configure('views', { noCache: true });
+    // have res.render work with html files
+    app.set('view engine', 'html');
+    // when res.render works with html files, have it use nunjucks to do so
+    app.engine('html', nunjucks.render);
+
     app.use(bodyParser.json());
 
+    app.get('/', (req, res, next) => {
+        res.render("blockchain", {blockchain});
+    })
     app.get('/blocks', (req, res) => res.send(JSON.stringify(blockchain)));
     app.post('/mineBlock', (req, res) => {
         var newBlock = generateNextBlock(req.body.data);
@@ -192,9 +209,9 @@ var isValidChain = (blockchainToValidate) => {
 };
 
 var getLatestBlock = () => blockchain[blockchain.length - 1];
-var queryChainLengthMsg = () => ({'type': MessageType.QUERY_LATEST});
-var queryAllMsg = () => ({'type': MessageType.QUERY_ALL});
-var responseChainMsg = () =>({
+var queryChainLengthMsg = () => ({ 'type': MessageType.QUERY_LATEST });
+var queryAllMsg = () => ({ 'type': MessageType.QUERY_ALL });
+var responseChainMsg = () => ({
     'type': MessageType.RESPONSE_BLOCKCHAIN, 'data': JSON.stringify(blockchain)
 });
 var responseLatestMsg = () => ({

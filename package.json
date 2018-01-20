@@ -13,5 +13,9 @@
   },
   "engines": {
     "node": ">=4.3.2"
+  },
+  "devDependencies": {
+    "nunjucks": "^3.0.1",
+    "path": "^0.12.7"
   }
 }
