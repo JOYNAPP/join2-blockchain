@@ -3,17 +3,18 @@
 
 <head>
     <title>Blockchain GUI</title>
-    <link href="/style.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="/style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <nav>Navbar</nav>
+    <nav></nav>
     <div id="blockchain">
         {% for block in blockchain %}
+        
         <div class="block">
             <div class="title-parts">
                 <div class="cheers-title">Cheers!</div>
@@ -22,18 +23,31 @@
             <div class="inside-info">
                 <div class="data">
                     <div class="title">DATA</div>
-                    <div>{{block.data.party1 | dump}}</div>
-                    <div>{{block.data.party2 | dump}}</div>
+                    {% if block.index === 0 %}
+                    <div class="data-text">Initial Block</div>
+                    {% else %}
+                    <div>
+                        <div class="data-text">Person 1: {{block.data.party1.name}}</div>
+                    </div>
+                    <div>
+                        <div class="data-text">Person 2: {{block.data.party2.name}}</div>
+                    </div>
+                    {% endif %}
                 </div>
                 <hr>
                 <div class="time">
                     <div class="title">CREATED AT</div>
-                    <div>{{block.data.time}}</div>
+                    <div class="data-text">{{block.data.time}}</div>
                 </div>
                 <hr>
                 <div class="hash">
                     <div class="title">HASH</div>
                     <div class="hash-code">{{block.hash}}</div>
+                </div>
+                <hr>
+                <div class="hash">
+                    <div class="title">PREVIOUS HASH</div>
+                    <div class="hash-code">{{block.previousHash}}</div>
                 </div>
             </div>
         </div>
