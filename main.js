@@ -53,12 +53,13 @@ var initHttpServer = () => {
         res.render("blockchain", {blockchain});
     })
     app.get('/blocks', (req, res) => res.send(JSON.stringify(blockchain)));
+
     app.post('/mineBlock', (req, res) => {
         var newBlock = generateNextBlock(req.body.data);
         addBlock(newBlock);
         broadcast(responseLatestMsg());
         console.log('block added: ' + JSON.stringify(newBlock));
-        res.send();
+        res.json(newBlock);
     });
     app.get('/peers', (req, res) => {
         res.send(sockets.map(s => s._socket.remoteAddress + ':' + s._socket.remotePort));

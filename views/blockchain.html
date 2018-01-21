@@ -11,24 +11,30 @@
 </head>
 
 <body>
+    <nav>Navbar</nav>
     <div id="blockchain">
         {% for block in blockchain %}
         <div class="block">
-            <div class="cheers-title">Cheers!</div>
-            <div class="hline"></div>
-            <div class="data">
-                <div class="title">DATA</div>
-                <div>{{block.data}}</div>
+            <div class="title-parts">
+                <div class="cheers-title">Cheers!</div>
+                <div class="blue">&nbsp;</div>
             </div>
-            <hr>
-            <div class="time">
-                <div class="title">CREATED AT</div>
-                <div>{{block.timestamp}}</div>
-            </div>
-            <hr>
-            <div class="hash">
-                <div class="title">HASH</div>
-                <div class="hash-code">{{block.hash}}</div>
+            <div class="inside-info">
+                <div class="data">
+                    <div class="title">DATA</div>
+                    <div>{{block.data.party1 | dump}}</div>
+                    <div>{{block.data.party2 | dump}}</div>
+                </div>
+                <hr>
+                <div class="time">
+                    <div class="title">CREATED AT</div>
+                    <div>{{block.data.time}}</div>
+                </div>
+                <hr>
+                <div class="hash">
+                    <div class="title">HASH</div>
+                    <div class="hash-code">{{block.hash}}</div>
+                </div>
             </div>
         </div>
 
