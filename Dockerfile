@@ -1,12 +1,12 @@
 FROM node:4.6
 
-RUN mkdir /naivechain
-ADD package.json /naivechain/
-ADD main.js /naivechain/
+RUN mkdir /joinchain
+ADD package.json /joinchain/
+ADD main.js /joinchain/
 
-RUN cd /naivechain && npm install
+RUN cd /joinchain && npm install
 
 EXPOSE 3001
 EXPOSE 6001
 
-ENTRYPOINT cd /naivechain && npm install && PEERS=$PEERS npm start
+ENTRYPOINT cd /joinchain && npm install && PEERS=$PEERS npm start

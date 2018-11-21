@@ -225,4 +225,4 @@ var broadcast = (message) => sockets.forEach(socket => write(socket, message));
 
 connectToPeers(initialPeers);
 initHttpServer();
-//initP2PServer();
+// initP2PServer();
